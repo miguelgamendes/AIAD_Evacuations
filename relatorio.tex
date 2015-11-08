@@ -8,6 +8,7 @@
 \usepackage{listings}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{dirtree}
 \hypersetup{
   colorlinks=true,
   linkcolor=blue!70!red
@@ -42,23 +43,22 @@ Miguel Mendes\\ 201105535 \\}
 
 \newpage
 \section{Introdução}
-No âmbito da unidade curricular de Agentes e Inteligência Artificial Distribuída, do 4º ano do Mestrado Integrado de Engenharia Informática e Computação, este relatório tem o propósito de expor a abordagem mais próxima que será adotada no projeto de Evacuações com Agentes BDI.
-No sentido em que usará uma arquitetura de agentes baseada em \textit{Belief, Desire, Intention}, para estruturar todo um conjunto de indivíduos (serão agentes) que atuaram num contexto de simulação de uma evacuação. O programa permitirá a a influência do utilizador na manipulação do ambiente e irá tratar/simular possíveis situações de um acidente cujos agentes deste espaço comportar-se-ão de acordo com perfis implementados, que serão explicados mais a baixo.
+No âmbito da unidade curricular de Agentes e Inteligência Artificial Distribuída, do 4º ano do Mestrado Integrado de Engenharia Informática e Computação, este relatório tem o propósito de expor a abordagem que será adotada no projeto de Evacuações com Agentes BDI.
+
+No sentido em que usará uma arquitetura de agentes baseada em \textit{Belief, Desire, Intention}, para estruturar todo um conjunto de indivíduos (agentes) que atuarão num contexto de simulação de uma evacuação. O programa permitirá a a influência do utilizador na manipulação do ambiente e irá tratar/simular possíveis situações de um acidente em que os agentes presentes no espaço se vão comportar de acordo com perfis implementados, que serão explicados mais a baixo.
 
 \section{Objetivos}
-O propósito deste projeto será simular a interação de agentes confinados a um espaço concreto e limitado. Este espaço será variável a nível de estrutura mas não de dimensão, ou seja, o plano (será utilizado uma dimensão 2D para a simulação) pode ser modificado pelo utilizador mas o comprimento do mesmo em x e y é invariável. Possivelmente poder-se-á permitir aumentar/diminuir o plano. Na descrição do cenário será feita uma abordagem mais aprofundada.
+O propósito deste projeto será simular a interação de agentes confinados a um espaço concreto e limitado. Este espaço será variável a nível de estrutura, podendo o utilizador desenhar os obstáculos e definir a posição dos agentes. Na descrição do cenário será feita uma abordagem mais aprofundada.
 
-A simulação das ações dos agentes serão a base do projeto, sendo que o objetivo será implementar determinados perfis, através da alteração de \textit{goals} dos agentes.
+A simulação das ações dos agentes serão a base do projeto, sendo que o objetivo será implementar determinados perfis, através da alteração de \textit{plans} e \textit{tasks} dos agentes.
 
 Com este espaço, o despoletar de eventos de acidentes e diversificando o comportamento dos indivíduos, o objetivo é recolher dados como tempo mínimo, médio e máximo de evacuação, perceber como é que a quantidade e tipo de agente influência a evacuação, número de feridos, entre outros.
 
 \section{Método de Avaliação}
-No decorrer da simulação serão recolhidos certos tipo de dados como fora referido.
-
 No programa, o tipo de perfil particular de cada agente influência como é que a interação é feita com os outros agentes.
 Com isto é possível criar simulações com o propósito de avaliar como é que o tipo e quantidade de agentes do mesmo tipo influenciam toda uma mecânica de evacuação de um edifício.
 
-O tempo é outro fator de importância pois vai permitir perceber como é que toda uma disposição de saídas de emergência tem impacto numa evacuação bem como o comportamento dos agentes também influencia.
+O tempo é outro fator de importância pois vai permitir perceber como é que a disposição de saídas de emergência tem impacto numa evacuação, assim como o comportamento dos agentes presentes.
 
 \section{Resultados Esperados}
 Com as variáveis de:
@@ -108,5 +108,29 @@ Agente que guia:
 \section{Protocolos de Interação}
 
 \section{Plataforma e Ferramenta}  
+A ferramenta utilizada para implementar o projeto é o Jadex, utilizando o módulo bdiv3, que permite a definição de agentes em Java em vez do xml utilizado na anterior versão.
+A estrutura dos projetos em bdiv3 é descrita em seguida:
+
+\DTsetlength{.2em}{1.5em}{.4em}{.4pt}{3pt}
+
+\dirtree{%
+.1 Pasta Projeto.
+.2 Application.xml.
+.2 Pasta Agente.
+.3 AgentBDI.java.
+.3 Plan\_1.java.
+.3 ....
+.3 Task\_1.java.
+.3 ....
+.3 Service\_1.java.
+.3 ....
+.2 Pasta Capability.
+.3 Capability.java.
+.3 Plan\_1.java.
+.3 ....
+.3 Task\_1.java.
+.3 ....
+}
+
 
 \end{document}
