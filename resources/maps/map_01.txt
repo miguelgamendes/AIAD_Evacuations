@@ -5,6 +5,6 @@ X   X    X
 X   X    X
 X X XXX  X
 X X   X  X
-X X  XX  E
+X XX XX  E
 X        X
 XXXXXXXXXX

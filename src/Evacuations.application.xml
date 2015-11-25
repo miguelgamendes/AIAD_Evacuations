@@ -43,7 +43,7 @@ http://jadex.sourceforge.net/jadex "
             </env:tasktypes>
 
             <env:processtypes>
-                <env:processtype name="generate_map" class="map.MapGenerator"/>
+                <env:processtype name="map_handler" class="map.MapHandler"/>
             </env:processtypes>
 
             <env:avatarmappings>
@@ -64,7 +64,7 @@ http://jadex.sourceforge.net/jadex "
                 <env:perspective name="icons" class="Perspective2D" objectplacement="center">
 
                     <env:drawable objecttype="wanderer" height="1.0" width="1.0">
-                        <env:texturedrectangle layer="2" imagepath="images/wanderer.png"/>
+                        <env:texturedrectangle layer="2" imagepath="images/avatar01.png"/>
                     </env:drawable>
 
                     <env:drawable objecttype="terrain" height="1.0" width="1.0">
@@ -111,8 +111,9 @@ http://jadex.sourceforge.net/jadex "
 
 
                     <env:processes>
-                        <env:process type="generate_map">
+                        <env:process type="map_handler">
                             <env:property name="map_number">"01"</env:property>
+                            <env:property name="downfall_prob">.1</env:property>
                         </env:process>
                     </env:processes>
 
@@ -123,7 +124,11 @@ http://jadex.sourceforge.net/jadex "
             </extensions>
 
             <components>
-                <component type="Wanderer" number="2"/>
+                <component type="Wanderer" number="2">
+                    <arguments>
+                        <argument name="speed">.1</argument>
+                    </arguments>
+                </component>
             </components>
 
         </configuration>

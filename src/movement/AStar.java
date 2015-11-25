@@ -70,10 +70,16 @@ public class AStar {
     }
 
     public List<Node> Compute(Node start, Node end) {
+
+        //System.out.println(start + " -> " + end);
+
+        if (start.equals(end)) {
+            return null;
+        }
+
         List<Node> closedSet = new ArrayList<Node>();
         List<Node> openSet = new ArrayList<Node>();
 
-        System.out.println(start + " -> " + end);
 
         openSet.add(start);
 
@@ -92,7 +98,7 @@ public class AStar {
                     list.add(currentNode);
                 } while (currentNode.parent !=null);
 
-                System.out.println(list);
+                //System.out.println(list);
                 Collections.reverse(list);
                 return list;
             }

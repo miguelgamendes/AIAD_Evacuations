@@ -30,15 +30,17 @@ import jadex.micro.annotation.Agent;
 public class MovementCapability {
 
     @Agent
-    protected ICapability capa;
+    protected ICapability kappa;
 
-    protected AbstractEnvironmentSpace env = (AbstractEnvironmentSpace)capa.getAgent().getParentAccess().getExtension("2dspace").get();
-    protected ISpaceObject myself = env.getAvatar(capa.getAgent().getComponentDescription(), capa.getAgent().getModel().getFullName());
+    @Belief
+    protected AbstractEnvironmentSpace env = (AbstractEnvironmentSpace) kappa.getAgent().getParentAccess().getExtension("2dspace").get();
+
+    protected ISpaceObject myself = env.getAvatar(kappa.getAgent().getComponentDescription(), kappa.getAgent().getModel().getFullName());
 
     @Goal (excludemode= Goal.ExcludeMode.Never)
     public class WalkAround {
         public WalkAround() {
-            System.out.println("Created Walk Around Goal");
+
         }
     }
 
@@ -65,6 +67,6 @@ public class MovementCapability {
     }
 
     public ICapability getCapability() {
-        return this.capa;
+        return this.kappa;
     }
 }
