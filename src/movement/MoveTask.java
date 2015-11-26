@@ -30,34 +30,43 @@ public class MoveTask extends AbstractTask {
 
     private List<AStar.Node> path;
 
-    private Vector2Double tmpLocation;
+    Vector2Double actualPos;
 
+    @Override
+    public void start(ISpaceObject obj) {
+        actualPos = (Vector2Double) obj.getProperty(Space2D.PROPERTY_POSITION);
+    }
 
     @Override
     public void execute(IEnvironmentSpace space, ISpaceObject obj, long progress, IClockService clock) {
 
+//       TODO Verificar a cada passo se estamos por cima de debris
+//       TODO Probabilidade de ficar ferido
+//       TODO Enviar mensagem se ferido
+//       TODO Não se poder mover se ferido
 
         path = (List<AStar.Node>) getProperty("path");
 
         IVector2 dest = (IVector2) getProperty(PROPERTY_DESTINATION);
-        IVector2 iDest = new Vector2Int(path.get(0).x,path.get(0).y);
+        Vector2Double iDest = new Vector2Double(path.get(0).x,path.get(0).y);
 
         double speed = ((Number) obj.getProperty(PROPERTY_SPEED)).doubleValue();
-        double maxdist = progress * speed;
+        double maxdist = progress * speed / 1000;
 
 
-        IVector2 loc = (IVector2) obj.getProperty(Space2D.PROPERTY_POSITION);
+        actualPos =
+                (Vector2Double) (((Space2D) space).getDistance(actualPos, iDest).getAsDouble() <= maxdist
+                        ? iDest :
+                        iDest.copy().subtract(actualPos).normalize().multiply(maxdist).add(actualPos));
 
-        IVector2 newloc = ((Space2D) space).getDistance(loc, iDest).getAsDouble() <= maxdist
-                ? iDest :
-                iDest.copy().subtract(loc).normalize().multiply(maxdist).add(loc);
 
-        ((Space2D) space).setPosition(obj.getId(), newloc);
 
-        if (newloc.equals(dest)) {
+        ((Space2D) space).setPosition(obj.getId(), actualPos);
+
+        if (actualPos.equals(dest)) {
             setFinished(space,obj,true);
 
-        } else if (newloc == iDest) {
+        } else if (actualPos == iDest) {
             path.remove(0);
         }
 

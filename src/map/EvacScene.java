@@ -26,7 +26,8 @@ public class EvacScene {
     public enum CellType {
         Blank,
         Wall,
-        Exit
+        Exit,
+        Debris
     }
 
     public CellType[][] map;
@@ -62,8 +63,8 @@ public class EvacScene {
 
             }
 
-            this.width = col;
-            this.height = line;
+            width = col;
+            height = line;
 
             map = new CellType[height][width];
 
@@ -116,7 +117,7 @@ public class EvacScene {
         map[y][x] = type;
 
         if (type == CellType.Wall) {
-            System.out.println("Created wall at (" + x + "," + y + ")");
+//            System.out.println("Created wall at (" + x + "," + y + ")");
             Map objectProperties = new HashMap();
             objectProperties.put("position", new Vector2Int(x, y));
             objectProperties.put("type", 0);
@@ -129,7 +130,7 @@ public class EvacScene {
 
             for (ISpaceObject object : list) {
                 if ( object.getProperty("position").equals(pos)) {
-                    System.out.println("Destroyed wall at (" + x + "," + y + ")");
+//                    System.out.println("Destroyed wall at (" + x + "," + y + ")");
                     scene.destroySpaceObject(object.getId());
                     break;
                 }

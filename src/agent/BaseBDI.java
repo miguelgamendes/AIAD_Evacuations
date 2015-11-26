@@ -17,6 +17,10 @@ public abstract class BaseBDI  {
     @Agent
     protected BDIAgent agent;
 
+    protected boolean injured = false;
+
+
+
     @Capability
     protected MovementCapability capability = new MovementCapability();
 
@@ -24,10 +28,7 @@ public abstract class BaseBDI  {
 
     }
 
-    @AgentBody
-    public void body() {
-        agent.dispatchTopLevelGoal(capability.new WalkAround());
-    }
+
 
     public MovementCapability getMovementCapability() {
         return capability;

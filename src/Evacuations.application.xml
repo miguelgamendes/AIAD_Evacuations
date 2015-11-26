@@ -33,7 +33,7 @@ http://jadex.sourceforge.net/jadex "
 
                 <env:objecttype name="wanderer">
                     <env:property name="position" class="IVector2"/>
-                    <env:property name="speed" class="double">0.01</env:property>
+                    <env:property name="speed" class="double">2</env:property>
                 </env:objecttype>
             </env:objecttypes>
 
@@ -68,15 +68,15 @@ http://jadex.sourceforge.net/jadex "
                     </env:drawable>
 
                     <env:drawable objecttype="terrain" height="1.0" width="1.0">
-                        <env:texturedrectangle layer="1" imagepath="images/terrain_2.png">
+                        <env:texturedrectangle layer="1" imagepath="images/wall.png">
                             <env:drawcondition>$object.type.equals(0)</env:drawcondition>
                         </env:texturedrectangle>
 
-                        <env:texturedrectangle layer="1" imagepath="images/terrain_3.png">
+                        <env:texturedrectangle layer="1" imagepath="images/exit.png">
                             <env:drawcondition>$object.type.equals(1)</env:drawcondition>
                         </env:texturedrectangle>
 
-                        <env:texturedrectangle layer="1" imagepath="images/terrain_4.png">
+                        <env:texturedrectangle layer="1" imagepath="images/debris.png">
                             <env:drawcondition>$object.type.equals(2)</env:drawcondition>
                         </env:texturedrectangle>
 
@@ -101,7 +101,7 @@ http://jadex.sourceforge.net/jadex "
     </extensiontypes>
 
     <componenttypes>
-        <componenttype name="Wanderer" filename="agent.WandererBDI.class"/>
+        <componenttype name="Wanderer" filename="agent.wanderer.WandererBDI.class"/>
     </componenttypes>
 
     <configurations>

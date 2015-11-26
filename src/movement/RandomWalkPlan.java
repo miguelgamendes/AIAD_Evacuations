@@ -35,6 +35,7 @@ public class RandomWalkPlan {
             do {
                 dest = ((Space2D) capa.getEnv()).getRandomPosition(Vector2Int.ZERO);
             } while (!dest.equals(pos) && Utils.scene.getCell(dest.getXAsInteger(), dest.getYAsInteger()) != EvacScene.CellType.Blank);
+
             MovementCapability.Move move = capa.new Move(dest);
             rplan.dispatchSubgoal(move).get();
         }

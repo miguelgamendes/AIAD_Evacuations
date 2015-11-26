@@ -1,5 +1,6 @@
-package agent;
+package agent.wanderer;
 
+import agent.BaseBDI;
 import jadex.bdiv3.BDIAgent;
 import jadex.bdiv3.annotation.Capability;
 import jadex.extension.envsupport.math.Vector2Int;
@@ -14,5 +15,8 @@ import movement.MovementCapability;
 @Agent
 public class WandererBDI extends BaseBDI {
 
-
+    @AgentBody
+    public void body() {
+        agent.dispatchTopLevelGoal(capability.new WalkAround());
+    }
 }

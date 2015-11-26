@@ -26,6 +26,7 @@ import jadex.micro.annotation.Agent;
                 body=@Body
                         (RandomWalkPlan.class)
         )
+
 })
 public class MovementCapability {
 
