@@ -40,6 +40,11 @@ http://jadex.sourceforge.net/jadex "
                     <env:property name="position" class="IVector2"/>
                     <env:property name="speed" class="double">3</env:property>
                 </env:objecttype>
+
+                <env:objecttype name="hazard">
+                    <env:property name="position" class="IVector2"/>
+                    <env:property name="type" class="String"/>
+                </env:objecttype>
             </env:objecttypes>
 
 
@@ -92,6 +97,10 @@ http://jadex.sourceforge.net/jadex "
 
                     </env:drawable>
 
+                    <env:drawable objecttype="hazard" height="1.0" width="1.0">
+                        <env:texturedrectangle layer="3" imagepath="images/fire.png"/>
+                    </env:drawable>
+
 
                     <env:prelayers>
                         <env:tiledlayer width="0.25" height="0.25" imagepath="images/terrain_1.png"/>
@@ -126,6 +135,7 @@ http://jadex.sourceforge.net/jadex "
                         <env:process type="map_handler">
                             <env:property name="map_number">"01"</env:property>
                             <env:property name="downfall_prob">.1</env:property>
+                            <env:property name="spread_rate">.01</env:property>
                         </env:process>
                     </env:processes>
 
