@@ -10,6 +10,7 @@ import jadex.extension.envsupport.math.IVector2;
 import jadex.extension.envsupport.math.Vector2Int;
 import jadex.micro.annotation.Agent;
 import jadex.micro.annotation.AgentBody;
+import movement.AStar;
 import movement.MovementCapability;
 
 import java.util.ArrayList;
@@ -23,6 +24,17 @@ public class SelfishBDI extends BaseBDI {
 
     @AgentBody
     public void body() {
+
+
+
+        agent.dispatchTopLevelGoal(capability.new Move( closestExit().getProperty("position"))).get();
+
+        capability.getEnv().destroySpaceObject(capability.getMyself().getId());
+        System.out.println("Arrived at exit");
+    }
+
+    ISpaceObject closestExit() {
+
         ISpaceObject[] terrains = capability.getEnv().getSpaceObjectsByType("terrain");
 
         List<ISpaceObject> exits = new ArrayList<>();
@@ -38,15 +50,19 @@ public class SelfishBDI extends BaseBDI {
         ISpaceObject exit = null;
         Space2D space = (Space2D)capability.getEnv();
         for (ISpaceObject currExit : exits) {
-            double currDist = space.getDistance((IVector2) currExit.getProperty("position"), (IVector2) capability.getMyself().getProperty("position")).getAsDouble();
-            if (currDist < dist) {
+
+            AStar aStar = new AStar();
+            List<AStar.Node> path = aStar.Compute(
+                    (new AStar.Node(((IVector2) capability.getMyself().getProperty(Space2D.PROPERTY_POSITION)).getXAsInteger(),((IVector2) capability.getMyself().getProperty(Space2D.PROPERTY_POSITION)).getYAsInteger())),
+                    new AStar.Node(((IVector2) currExit.getProperty("position")).getXAsInteger(), ((IVector2) currExit.getProperty("position")).getYAsInteger()));
+
+
+            if (path.size() < dist) {
                 exit = currExit;
-                dist = currDist;
+                dist = path.size();
             }
         }
 
-        agent.dispatchTopLevelGoal(capability.new Move( exit.getProperty("position"))).get();
-
-        System.out.println("Arrived at exit");
+        return exit;
     }
 }

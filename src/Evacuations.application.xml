@@ -132,7 +132,7 @@ http://jadex.sourceforge.net/jadex "
 
 
                     <env:processes>
-                        <env:process type="map_handler">
+                        <env:process type="debris_handler">
                             <env:property name="map_number">"01"</env:property>
                             <env:property name="downfall_prob">.1</env:property>
                             <env:property name="spread_rate">.01</env:property>
