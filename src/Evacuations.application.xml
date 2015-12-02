@@ -36,6 +36,11 @@ http://jadex.sourceforge.net/jadex "
                     <env:property name="speed" class="double">2</env:property>
                 </env:objecttype>
 
+                <env:objecttype name="selfish">
+                    <env:property name="position" class="IVector2"/>
+                    <env:property name="speed" class="double">3</env:property>
+                </env:objecttype>
+
                 <env:objecttype name="hazard">
                     <env:property name="position" class="IVector2"/>
                     <env:property name="type" class="String"/>
@@ -53,6 +58,7 @@ http://jadex.sourceforge.net/jadex "
 
             <env:avatarmappings>
                 <env:avatarmapping componenttype="Wanderer" objecttype="wanderer"/>
+                <env:avatarmapping componenttype="Selfish" objecttype="selfish"/>
             </env:avatarmappings>
 
 
@@ -70,6 +76,10 @@ http://jadex.sourceforge.net/jadex "
 
                     <env:drawable objecttype="wanderer" height="1.0" width="1.0">
                         <env:texturedrectangle layer="2" imagepath="images/avatar01.png"/>
+                    </env:drawable>
+
+                    <env:drawable objecttype="selfish" height="1.0" width="1.0">
+                        <env:texturedrectangle layer="2" imagepath="images/avatar02.png"/>
                     </env:drawable>
 
                     <env:drawable objecttype="terrain" height="1.0" width="1.0">
@@ -91,6 +101,7 @@ http://jadex.sourceforge.net/jadex "
                         <env:texturedrectangle layer="3" imagepath="images/fire.png"/>
                     </env:drawable>
 
+
                     <env:prelayers>
                         <env:tiledlayer width="0.25" height="0.25" imagepath="images/terrain_1.png"/>
                     </env:prelayers>
@@ -111,6 +122,7 @@ http://jadex.sourceforge.net/jadex "
 
     <componenttypes>
         <componenttype name="Wanderer" filename="agent.wanderer.WandererBDI.class"/>
+        <componenttype name="Selfish" filename="agent.selfish.SelfishBDI.class"/>
     </componenttypes>
 
     <configurations>
@@ -135,9 +147,9 @@ http://jadex.sourceforge.net/jadex "
 
             <components>
                 <component type="Wanderer" number="2">
-                    <arguments>
-                        <argument name="speed">.1</argument>
-                    </arguments>
+                </component>
+
+                <component type="Selfish" number="3">
                 </component>
             </components>
 

@@ -25,12 +25,6 @@ public class MapHandler extends SimplePropertyObject implements ISpaceProcess {
     // Probability of a downfall
     private double downfall_prob;
 
-    // Fire Hazard
-    Fire fire;
-
-    // Fire spread rate
-    private double spread_rate;
-
     @Override
     public void start(IClockService iClockService, IEnvironmentSpace iEnvironmentSpace) {
 
@@ -46,10 +40,6 @@ public class MapHandler extends SimplePropertyObject implements ISpaceProcess {
         Utils.scene = evacScene;
 
         downfall_prob = (double) getProperty("downfall_prob");
-
-        spread_rate = (double) getProperty("spread_rate");
-
-        fire = new Fire((Space2D) iEnvironmentSpace, spread_rate);
     }
 
     @Override
@@ -59,7 +49,7 @@ public class MapHandler extends SimplePropertyObject implements ISpaceProcess {
 
     @Override
     public void execute(IClockService iClockService, IEnvironmentSpace iEnvironmentSpace) {
-        double prob = rand.nextDouble();
+        float prob = rand.nextFloat();
 
         if (prob < downfall_prob) {
             Space2D space = (Space2D) iEnvironmentSpace;
@@ -74,14 +64,8 @@ public class MapHandler extends SimplePropertyObject implements ISpaceProcess {
 
 //            System.out.println("Downfall at (" + pos.getXAsInteger() + "," + pos.getYAsInteger() + ")\nType = " + type );
 
-            if (type == EvacScene.CellType.Wall)
-                evacScene.setCell(pos.getXAsInteger(), pos.getYAsInteger(), EvacScene.CellType.Blank);
+            evacScene.addDebris(pos.getXAsInteger(), pos.getYAsInteger());
 
-            else if (type == EvacScene.CellType.Blank)
-                evacScene.setCell(pos.getXAsInteger(), pos.getYAsInteger(), EvacScene.CellType.Wall);
         }
-
-        fire.spread();
-        fire.update();
     }
 }
