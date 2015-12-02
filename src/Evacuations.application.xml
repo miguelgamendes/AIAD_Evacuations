@@ -34,11 +34,14 @@ http://jadex.sourceforge.net/jadex "
                 <env:objecttype name="wanderer">
                     <env:property name="position" class="IVector2"/>
                     <env:property name="speed" class="double">2</env:property>
+                    <env:property name="injured" class="boolean">false</env:property>
                 </env:objecttype>
 
                 <env:objecttype name="selfish">
                     <env:property name="position" class="IVector2"/>
                     <env:property name="speed" class="double">3</env:property>
+                    <env:property name="injured" class="boolean">false</env:property>
+
                 </env:objecttype>
 
                 <env:objecttype name="hazard">

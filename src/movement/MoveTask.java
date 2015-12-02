@@ -8,6 +8,8 @@ import jadex.extension.envsupport.environment.space2d.Space2D;
 import jadex.extension.envsupport.math.IVector2;
 import jadex.extension.envsupport.math.Vector2Double;
 import jadex.extension.envsupport.math.Vector2Int;
+import map.EvacScene;
+import utils.Utils;
 
 import java.util.List;
 
@@ -47,29 +49,51 @@ public class MoveTask extends AbstractTask {
 
         path = (List<AStar.Node>) getProperty("path");
 
-        IVector2 dest = (IVector2) getProperty(PROPERTY_DESTINATION);
-        Vector2Double iDest = new Vector2Double(path.get(0).x,path.get(0).y);
+        if (! (Boolean) obj.getProperty("injured")) {
+            IVector2 dest = (IVector2) getProperty(PROPERTY_DESTINATION);
+            Vector2Double iDest = new Vector2Double(path.get(0).x, path.get(0).y);
 
-        double speed = ((Number) obj.getProperty(PROPERTY_SPEED)).doubleValue();
-        double maxdist = progress * speed / 1000;
-
-
-        actualPos =
-                (Vector2Double) (((Space2D) space).getDistance(actualPos, iDest).getAsDouble() <= maxdist
-                        ? iDest :
-                        iDest.copy().subtract(actualPos).normalize().multiply(maxdist).add(actualPos));
+            double speed = ((Number) obj.getProperty(PROPERTY_SPEED)).doubleValue();
+            double maxdist = progress * speed / 1000;
 
 
+            actualPos =
+                    (Vector2Double) (((Space2D) space).getDistance(actualPos, iDest).getAsDouble() <= maxdist
+                            ? iDest :
+                            iDest.copy().subtract(actualPos).normalize().multiply(maxdist).add(actualPos));
 
-        ((Space2D) space).setPosition(obj.getId(), actualPos);
 
-        if (actualPos.equals(dest)) {
-            setFinished(space,obj,true);
+            ((Space2D) space).setPosition(obj.getId(), actualPos);
 
-        } else if (actualPos == iDest) {
-            path.remove(0);
+
+            verifyStep(obj, actualPos);
+
+            if (actualPos.equals(dest)) {
+                setFinished(space, obj, true);
+
+            } else if (actualPos == iDest) {
+                path.remove(0);
+            }
         }
 
+
+    }
+
+    private void verifyStep(ISpaceObject obj, IVector2 actualPos) {
+        EvacScene.CellType type = Utils.scene.getCell(actualPos.getXAsInteger(),actualPos.getYAsInteger());
+
+        if (type == EvacScene.CellType.Debris) {
+
+            System.out.println("On top of Debris");
+
+
+            if (Utils.rand.nextFloat() < .05f) {
+
+                obj.setProperty("injured", true);
+
+                System.out.println("I am Injured");
+            }
+        }
 
     }
 }

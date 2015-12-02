@@ -25,8 +25,6 @@ public class SelfishBDI extends BaseBDI {
     @AgentBody
     public void body() {
 
-
-
         agent.dispatchTopLevelGoal(capability.new Move( closestExit().getProperty("position"))).get();
 
         capability.getEnv().destroySpaceObject(capability.getMyself().getId());
@@ -48,7 +46,7 @@ public class SelfishBDI extends BaseBDI {
         double dist = Double.MAX_VALUE;
 
         ISpaceObject exit = null;
-        Space2D space = (Space2D)capability.getEnv();
+
         for (ISpaceObject currExit : exits) {
 
             AStar aStar = new AStar();
