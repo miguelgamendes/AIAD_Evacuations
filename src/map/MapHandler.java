@@ -64,12 +64,7 @@ public class MapHandler extends SimplePropertyObject implements ISpaceProcess {
 
 //            System.out.println("Downfall at (" + pos.getXAsInteger() + "," + pos.getYAsInteger() + ")\nType = " + type );
 
-            if (type == EvacScene.CellType.Wall)
-                evacScene.setCell(pos.getXAsInteger(), pos.getYAsInteger(), EvacScene.CellType.Blank);
-
-            else if (type == EvacScene.CellType.Blank)
-                evacScene.setCell(pos.getXAsInteger(), pos.getYAsInteger(), EvacScene.CellType.Wall);
-
+            evacScene.addDebris(pos.getXAsInteger(), pos.getYAsInteger());
 
         }
     }

@@ -54,24 +54,22 @@ public class AStar {
         int x = node.x;
         int y = node.y;
 
-        if (y < scene.getHeight() && scene.getCell(x,y+1) == EvacScene.CellType.Blank)
+        if (y < scene.getHeight() - 1 && scene.getCell(x,y+1) != EvacScene.CellType.Wall)
             ret.add(new Node(x,y+1));
 
-        if (x < scene.getWidth() && scene.getCell(x+1,y) == EvacScene.CellType.Blank)
+        if (x < scene.getWidth() - 1 && scene.getCell(x+1,y) != EvacScene.CellType.Wall)
             ret.add(new Node(x+1,y));
 
-        if (y > 0 && scene.getCell(x,y-1) == EvacScene.CellType.Blank)
+        if (y > 0 && scene.getCell(x,y-1) != EvacScene.CellType.Wall)
             ret.add(new Node(x,y-1));
 
-        if (x > 0 && scene.getCell(x-1,y) == EvacScene.CellType.Blank)
+        if (x > 0 && scene.getCell(x-1,y) != EvacScene.CellType.Wall)
             ret.add(new Node(x-1,y));
 
         return ret;
     }
 
     public List<Node> Compute(Node start, Node end) {
-
-        //System.out.println(start + " -> " + end);
 
         if (start.equals(end)) {
             return null;
@@ -98,7 +96,6 @@ public class AStar {
                     list.add(currentNode);
                 } while (currentNode.parent !=null);
 
-                //System.out.println(list);
                 Collections.reverse(list);
                 return list;
             }

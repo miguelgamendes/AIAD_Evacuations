@@ -113,6 +113,42 @@ public class EvacScene {
         return map[y][x];
     }
 
+    public void addDebris(int x, int y) {
+
+        if (map[y][x] == CellType.Wall) {
+            ISpaceObject[] list = scene.getSpaceObjectsByType("terrain");
+            IVector2 pos = new Vector2Int(x,y);
+
+            for (ISpaceObject object : list) {
+                if ( object.getProperty("position").equals(pos)) {
+                    scene.destroySpaceObject(object.getId());
+                    break;
+                }
+            }
+
+            Map objectProperties = new HashMap();
+            objectProperties.put("position", new Vector2Int(x, y));
+            objectProperties.put("type", 2);
+            scene.createSpaceObject("terrain", objectProperties, null);
+
+            map[y][x] = CellType.Debris;
+
+        } else if (map[y][x] == CellType.Debris) {
+            return;
+        } else if (map[y][x] == CellType.Blank) {
+
+            Map objectProperties = new HashMap();
+            objectProperties.put("position", new Vector2Int(x, y));
+            objectProperties.put("type", 2);
+            scene.createSpaceObject("terrain", objectProperties, null);
+
+            map[y][x] = CellType.Debris;
+        }
+
+
+
+    }
+
     public void setCell(int x, int y, CellType type) {
         map[y][x] = type;
 

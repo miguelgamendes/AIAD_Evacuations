@@ -40,7 +40,7 @@ public class MoveToLocationPlan {
         AbstractEnvironmentSpace env = capa.getEnv();
         ISpaceObject myself = (ISpaceObject) capa.getMyself();
 
-        Vector2Int dest = (Vector2Int) this.goal.getDestination();
+        IVector2 dest = (IVector2) this.goal.getDestination();
 
 //      Task Properties
         Map properties = new HashMap();

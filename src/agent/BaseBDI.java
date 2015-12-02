@@ -3,10 +3,7 @@ package agent;
 import jadex.bdiv3.BDIAgent;
 import jadex.bdiv3.annotation.Belief;
 import jadex.bdiv3.annotation.Capability;
-import jadex.extension.envsupport.environment.space2d.Space2D;
 import jadex.micro.annotation.Agent;
-import jadex.micro.annotation.AgentBody;
-import map.EvacScene;
 import movement.MovementCapability;
 
 /**
@@ -18,8 +15,6 @@ public abstract class BaseBDI  {
     protected BDIAgent agent;
 
     protected boolean injured = false;
-
-
 
     @Capability
     protected MovementCapability capability = new MovementCapability();
