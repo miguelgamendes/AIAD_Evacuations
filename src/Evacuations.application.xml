@@ -53,7 +53,7 @@ http://jadex.sourceforge.net/jadex "
             </env:tasktypes>
 
             <env:processtypes>
-                <env:processtype name="map_handler" class="map.MapHandler"/>
+                <env:processtype name="debris_handler" class="map.DebrisHandler"/>
             </env:processtypes>
 
             <env:avatarmappings>

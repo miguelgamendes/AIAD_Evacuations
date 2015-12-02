@@ -15,7 +15,7 @@ import java.util.Random;
 /**
  * Created by Jo�o on 11/11/2015.
  */
-public class MapHandler extends SimplePropertyObject implements ISpaceProcess {
+public class DebrisHandler extends SimplePropertyObject implements ISpaceProcess {
 
     private Random rand = new Random();
 

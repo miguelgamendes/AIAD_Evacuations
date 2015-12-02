@@ -1,33 +1,23 @@
 package agent.selfish;
 
 import agent.BaseBDI;
-<<<<<<< HEAD
+
 import jadex.bdiv3.BDIAgent;
 import jadex.bdiv3.annotation.Capability;
+import jadex.extension.envsupport.environment.ISpaceObject;
+import jadex.extension.envsupport.environment.space2d.Space2D;
+import jadex.extension.envsupport.math.IVector2;
 import jadex.extension.envsupport.math.Vector2Int;
 import jadex.micro.annotation.Agent;
 import jadex.micro.annotation.AgentBody;
 import movement.MovementCapability;
-=======
-import jadex.extension.envsupport.environment.ISpaceObject;
-import jadex.extension.envsupport.math.IVector2;
-import jadex.micro.annotation.Agent;
-import jadex.micro.annotation.AgentBody;
 
 import java.util.ArrayList;
 import java.util.List;
->>>>>>> 09d2a284f1c18c500b5dd626ad4b081679cb6197
 
 /**
  * Created by joao on 25-11-2015.
  */
-<<<<<<< HEAD
-
-@Agent
-public class SelfishBDI extends BaseBDI {
-
-
-=======
 @Agent
 public class SelfishBDI extends BaseBDI {
 
@@ -43,7 +33,20 @@ public class SelfishBDI extends BaseBDI {
             }
         }
 
-        agent.dispatchTopLevelGoal(capability.new Move((IVector2) exits.get(0).getProperty("position")));
+        double dist = Double.MAX_VALUE;
+
+        ISpaceObject exit = null;
+        Space2D space = (Space2D)capability.getEnv();
+        for (ISpaceObject currExit : exits) {
+            double currDist = space.getDistance((IVector2) currExit.getProperty("position"), (IVector2) capability.getMyself().getProperty("position")).getAsDouble();
+            if (currDist < dist) {
+                exit = currExit;
+                dist = currDist;
+            }
+        }
+
+        agent.dispatchTopLevelGoal(capability.new Move( exit.getProperty("position"))).get();
+
+        System.out.println("Arrived at exit");
     }
->>>>>>> 09d2a284f1c18c500b5dd626ad4b081679cb6197
 }
