@@ -31,17 +31,28 @@ http://jadex.sourceforge.net/jadex "
                     <env:property name="type" class="String"/>
                 </env:objecttype>
 
+                <!-- Agentes -->
+
                 <env:objecttype name="wanderer">
                     <env:property name="position" class="IVector2"/>
                     <env:property name="speed" class="double">2</env:property>
                     <env:property name="injured" class="boolean">false</env:property>
+                    <env:property name="carried" class="boolean">false</env:property>
                 </env:objecttype>
 
                 <env:objecttype name="selfish">
                     <env:property name="position" class="IVector2"/>
                     <env:property name="speed" class="double">3</env:property>
                     <env:property name="injured" class="boolean">false</env:property>
+                    <env:property name="carried" class="boolean">false</env:property>
+                </env:objecttype>
 
+                <env:objecttype name="helper">
+                    <env:property name="position" class="IVector2"/>
+                    <env:property name="speed" class="double">3</env:property>
+                    <env:property name="injured" class="boolean">false</env:property>
+                    <env:property name="carried" class="boolean">false</env:property>
+                    <env:property name="injuredAgent" class="jadex.extension.envsupport.environment.ISpaceObject">null</env:property>
                 </env:objecttype>
 
                 <env:objecttype name="hazard">
@@ -53,6 +64,7 @@ http://jadex.sourceforge.net/jadex "
 
             <env:tasktypes>
                 <env:tasktype name="move" class="MoveTask"/>
+                <env:tasktype name="look" class="agent.helper.LookTask"/>
             </env:tasktypes>
 
             <env:processtypes>
@@ -62,6 +74,7 @@ http://jadex.sourceforge.net/jadex "
             <env:avatarmappings>
                 <env:avatarmapping componenttype="Wanderer" objecttype="wanderer"/>
                 <env:avatarmapping componenttype="Selfish" objecttype="selfish"/>
+                <env:avatarmapping componenttype="Helper" objecttype="helper"/>
             </env:avatarmappings>
 
 
@@ -83,6 +96,10 @@ http://jadex.sourceforge.net/jadex "
 
                     <env:drawable objecttype="selfish" height="1.0" width="1.0">
                         <env:texturedrectangle layer="2" imagepath="images/avatar02.png"/>
+                    </env:drawable>
+
+                    <env:drawable objecttype="helper" height="1.0" width="1.0">
+                        <env:texturedrectangle layer="2" imagepath="images/avatar03.png"/>
                     </env:drawable>
 
                     <env:drawable objecttype="terrain" height="1.0" width="1.0">
@@ -126,12 +143,13 @@ http://jadex.sourceforge.net/jadex "
     <componenttypes>
         <componenttype name="Wanderer" filename="agent.wanderer.WandererBDI.class"/>
         <componenttype name="Selfish" filename="agent.selfish.SelfishBDI.class"/>
+        <componenttype name="Helper" filename="agent.helper.HelperBDI.class"/>
     </componenttypes>
 
     <configurations>
         <configuration name="Default">
             <extensions>
-                <env:envspace name="2dspace" type="2dspace" width="10" height="10">
+                <env:envspace name="2dspace" type="2dspace" width="60" height="40">
 
 
                     <env:processes>
@@ -149,14 +167,41 @@ http://jadex.sourceforge.net/jadex "
             </extensions>
 
             <components>
-                <component type="Wanderer" number="2">
-                </component>
+                <component type="Wanderer" number="2"/>
+                <component type="Selfish" number="10"/>
+                <component type="Helper" number="20"/>
+            </components>
 
-                <component type="Selfish" number="3">
-                </component>
+        </configuration>
+
+        <configuration name="Development">
+            <extensions>
+                <env:envspace name="2dspace" type="2dspace" width="10" height="10">
+
+
+                    <env:processes>
+                        <env:process type="debris_handler">
+                            <env:property name="map_number">"02"</env:property>
+                            <env:property name="downfall_prob">.1</env:property>
+                            <env:property name="spread_rate">.01</env:property>
+                        </env:process>
+                    </env:processes>
+
+                    <env:observers>
+                        <env:observer name="Simple Grid Watcher" dataview="view_all" perspective="icons"/>
+                    </env:observers>
+                </env:envspace>
+            </extensions>
+
+            <components>
+                <component type="Wanderer" number="2"/>
+                <component type="Selfish" number="3"/>
+                <component type="Helper" number="2"/>
             </components>
 
         </configuration>
     </configurations>
+
+
 
 </applicationtype>

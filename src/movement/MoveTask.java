@@ -42,10 +42,6 @@ public class MoveTask extends AbstractTask {
     @Override
     public void execute(IEnvironmentSpace space, ISpaceObject obj, long progress, IClockService clock) {
 
-//       TODO Verificar a cada passo se estamos por cima de debris
-//       TODO Probabilidade de ficar ferido
-//       TODO Enviar mensagem se ferido
-//       TODO Não se poder mover se ferido
 
         path = (List<AStar.Node>) getProperty("path");
 
@@ -75,25 +71,23 @@ public class MoveTask extends AbstractTask {
                 path.remove(0);
             }
         }
-
-
     }
 
     private void verifyStep(ISpaceObject obj, IVector2 actualPos) {
         EvacScene.CellType type = Utils.scene.getCell(actualPos.getXAsInteger(),actualPos.getYAsInteger());
 
         if (type == EvacScene.CellType.Debris) {
-
-            System.out.println("On top of Debris");
-
-
-            if (Utils.rand.nextFloat() < .05f) {
+//            System.out.println("On top of Debris");
+            if (Utils.rand.nextFloat() < .1f) {
 
                 obj.setProperty("injured", true);
 
-                System.out.println("I am Injured");
+                Utils.injuredAgents.add(obj);
+//       TODO Enviar mensagem se ferido
+                System.out.println("Injured agents " + Utils.injuredAgents);
             }
         }
 
     }
+
 }
