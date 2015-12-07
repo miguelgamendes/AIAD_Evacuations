@@ -49,6 +49,7 @@ public class HelpCapability {
     @Belief
     protected List<ISpaceObject> injured = Utils.injuredAgents;
 
+    
     public ICapability getCapability() {
         return this.kappa;
     }
